@@ -2,14 +2,6 @@
 
 namespace App;
 
-use App\Picture;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Database\Eloquent\Model;
 use App\PostDetails;
 use App\Products;
@@ -35,7 +27,6 @@ class Products extends Model
     public function getPicture($id)
     {
         $product = Products::find($id);
-
         $avatar = $product->avatar;
 
         $img = Image::make($avatar);
@@ -45,7 +36,6 @@ class Products extends Model
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
         return $base64;
-        return Response::make($img->encode($type));
     }
 
 }

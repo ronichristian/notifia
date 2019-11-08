@@ -29,13 +29,11 @@ class PostDetails extends Model
     public function getPicture($id)
     {
         $product = Products::find($id);
-
         $avatar = $product->avatar;
-        $avatar_extension = $product->avatar_extension;
 
         $img = Image::make($avatar);
-        $img->encode($avatar_extension);
-        $type = $avatar_extension;
+        $img->encode('png');
+        $type = 'png';
 
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 

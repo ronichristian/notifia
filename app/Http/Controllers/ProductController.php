@@ -60,18 +60,17 @@ class ProductController extends Controller
 
         if($request->hasFile('image'))
         {
-            // $path = $request->file('image')->getRealPath();
-            // $logo = file_get_contents($path);
-            // $fileNameToStore = base64_encode($logo);
+            $path = $request->file('image')->getRealPath();
+            $logo = file_get_contents($path);
+            $fileNameToStore = base64_encode($logo);
 
             // $file = Input::file('image');
             // $fileNameToStore = Image::make($file);
             // Response::make($fileNameToStore->encode('jpeg'));
 
-            $file = Input::file('image');
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = Image::make($file);
-            return Response::make($fileNameToStore->encode($extension));
+            // $file = Input::file('image');
+            // $extension = $request->file('image')->getClientOriginalExtension();
+            // $fileNameToStore = Image::make($file);
         }
         else
         {

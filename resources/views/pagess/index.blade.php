@@ -94,7 +94,7 @@
 
 <!-- Products of the week -->
 <div id="latest_products">
-    {{-- @include('inc.products_of_the_week') --}}
+    @include('inc.products_of_the_week')
 </div>
 
 
