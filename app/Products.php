@@ -28,7 +28,7 @@ class Products extends Model
     {
 
         $product = Products::find($id);
-
+        return 'asd';
         $avatar = $product->avatar;
         $avatar_extension = $product->avatar_extension;
 
@@ -38,7 +38,7 @@ class Products extends Model
 
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
-        return 'asd';
+        return $base64;
     }
 
 }
