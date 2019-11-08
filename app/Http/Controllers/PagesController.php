@@ -321,19 +321,8 @@ class PagesController extends Controller
             ->select([DB::raw('created_at as date'), DB::raw('product_price as price')])
             ->where('product_id', $id)
             ->get(); 
-
-        $chart = Charts::create('bar', 'chartjs')
-            ->title('Price Changes of ')
-            ->responsive(false)
-            ->width(300)
-            ->height(300)
-            ->labels($data->pluck('date'))
-            ->values($data->pluck('price'))
-            ->elementLabel("Price Changes")
-            ->responsive(false); 
       
-        return view('pagess.view_product',['chart' => $chart, 
-                                            'categories' => $categories, 
+        return view('pagess.view_product',['categories' => $categories, 
                                             'category' => $category, 
                                             'post_details' => $post_details, 
                                             'stores' => $stores, 
@@ -379,21 +368,10 @@ class PagesController extends Controller
             ->where('product_id', $id)
             ->get(); 
 
-        $chart = Charts::create('bar', 'chartjs')
-            ->title('Price Changes of ')
-            ->responsive(false)
-            ->width(300)
-            ->height(300)
-            ->labels($data->pluck('date'))
-            ->values($data->pluck('price'))
-            ->elementLabel("Price Changes")
-            ->responsive(false); 
-        
         $stores_for_header_page = Stores::select('store_name', 'id', 'location')->get();
 
 
-        return view('pagess.view_product',['chart' => $chart, 
-                                            'store_names_for_add_product' => $store_names_for_add_product,
+        return view('pagess.view_product',['store_names_for_add_product' => $store_names_for_add_product,
                                             'products_for_add_product' => $products_for_add_product,
                                             'categories' => $categories, 
                                             'category' => $category, 
