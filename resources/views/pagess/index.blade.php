@@ -88,13 +88,13 @@
 </div>
 <hr>
 <!-- Table of Products -->
-    {{-- @include('inc.products_table')` --}}
+    @include('inc.products_table')
 <!-- Characteristics -->
 
 
 <!-- Products of the week -->
 <div id="latest_products">
-    @include('inc.products_of_the_week')
+    {{-- @include('inc.products_of_the_week') --}}
 </div>
 
 
