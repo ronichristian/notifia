@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductsTable extends Migration
+class CreateCommercialProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('commercial_products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('product_name');
+            $table->string('sponsor');
+            $table->string('description', 100)->nullable();
+            $table->string('store_name')->nullable();
+            $table->double('product_price')->nullable();
             // $table->binary('avatar')->nullable();
             $table->timestamps();
-        });
-        // DB::statement("ALTER TABLE products ADD avatar mediumblob");
+        });  
+        DB::statement("ALTER TABLE commercial_products ADD avatar BYTEA");
     }
 
     /**
@@ -29,6 +33,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('commercial_products');
     }
 }
