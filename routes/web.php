@@ -104,4 +104,4 @@ Route::post('/by_location', 'PagesController@by_location');
 Route::get('/avatar/{id}', 'ProductController@getPicture');
 
 
-Route::get('/get_products', 'ProductController@getProducts');
+Route::get('/get_products', 'ProductController@get_products');
