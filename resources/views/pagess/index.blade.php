@@ -88,7 +88,7 @@
 </div>
 <hr>
 <!-- Table of Products -->
-    @include('inc.products_table')
+    {{-- @include('inc.products_table')` --}}
 <!-- Characteristics -->
 
 

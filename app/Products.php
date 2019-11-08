@@ -28,14 +28,6 @@ class Products extends Model
     {
         $product = Products::find($id);
 
-        $img = Image::make($product->avatar);
-        $img->encode('jpg');
-        $type = 'jpg';
-
-        $base64 = 'data:image/' . $img . ';base64,' . base64_encode($img);
-
-        $product = Products::find($id);
-
         $avatar = $product->avatar;
         $avatar_extension = $product->avatar_extension;
 
@@ -43,7 +35,7 @@ class Products extends Model
         $img->encode($avatar_extension);
         $type = $avatar_extension;
 
-        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
+        $base64 = 'data:image/' . $type . ';base64,' . base64_decode($img);
 
         return $base64;
     }

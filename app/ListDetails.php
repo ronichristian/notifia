@@ -20,14 +20,6 @@ class ListDetails extends Model
     {
         $product = Products::find($id);
 
-        $img = Image::make($product->avatar);
-        $img->encode('jpg');
-        $type = 'jpg';
-
-        $base64 = 'data:image/' . $img . ';base64,' . base64_encode($img);
-
-        $product = Products::find($id);
-
         $avatar = $product->avatar;
         $avatar_extension = $product->avatar_extension;
 
