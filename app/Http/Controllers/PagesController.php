@@ -34,7 +34,6 @@ class PagesController extends Controller
     public function index()
     {
         $current = Carbon::now();
-        $lists = UserLists::all();
         $products = Products::all();  
         $categories = Category::all();
         $post_details = PostDetails::all(); 
@@ -103,8 +102,7 @@ class PagesController extends Controller
                     'store_id' => $store_id,
                     'result' => $result,
                     'stores' => $stores,
-                    'mosts' => $mosts,
-                    'lists' => $lists,  
+                    'mosts' => $mosts,  
                     ]);
     }
     
@@ -378,7 +376,7 @@ class PagesController extends Controller
                                             'post_details' => $post_details, 
                                             'stores' => $stores, 
                                             'product' => $product, 
-                                            'user_lists' => $user_lists ,
+                                            'user_lists' => $user_lists,
                                             'store_names' => $store_names,
                                             'locations' => $locations,
                                             'location_names' => $location_names,
