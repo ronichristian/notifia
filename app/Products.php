@@ -38,7 +38,7 @@ class Products extends Model
 
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
-        return $img;
+        return 'asd';
     }
 
 }
