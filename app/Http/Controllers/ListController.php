@@ -265,4 +265,11 @@ class ListController extends Controller
         $list->save();
         return $list_id;
     }
+
+    public function get_product_details_in_list(Request $request)
+    {
+        $list_id = $request->get('data');
+        $list = ListDetails::where('user_list_id',$list_id)->get();
+        return $list->product_name;
+    }
 }

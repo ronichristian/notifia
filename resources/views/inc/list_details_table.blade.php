@@ -229,12 +229,31 @@ $(document).ready(function(){
     var total_checked = $('#total_of_checked_prods').text().replace(",", "");
     price_array.push( parseFloat(total_checked) );
 
+    $('.checker').change(function(e){
+        var date_array = [];
+            var e_id = $(this).attr("id");
+            $.ajax({
+                type: 'POST',
+                url: '/get_product_details_in_list',
+                data:{data: e_id},
+                success:function(response)
+                {
+                    // swal({
+                    //     title: "Product Bought",
+                    //     icon: "success",
+                    // });
+                }
+            });
+            alert();
+    });
+
     //TOGGLE OF PRODUCT TO BUY
     $('.checker').change(function(e){ 
         var products = document.querySelector('tbody');
         
         if($(this).prop("checked") == true)
         { 
+            
             var product_price = parseFloat($(this).closest("tr").find("#subtotal").text().replace(",", ""));
             var store_name = $(this).closest("tr").find("#store_name").text();
             var user_list_id = $('#list_id_holder').val();

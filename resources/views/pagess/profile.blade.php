@@ -44,7 +44,7 @@
 								@if($user_list->is_shared == 1)
 								<a href="list_details/{{$user_list->id}}/view">
 									<div style="height: 235px; background-color:deepskyblue;" class="blog_post">
-										<div class="blog_image" style="background-size: auto; background-image:url(/storage/product_images/default-product.jpg)"></div>
+										<div class="blog_image" style="background-size: auto; background-image:url(/css/img/default-product.jpg)"></div>
 										<div class="blog_text" style="color: rgb(255,127,39);">{{ strtoupper($user_list->list_name)}}, <span style="color:white;">with {{$count}} item(s) </span> </div> 
 										<div class="blog_button">
 										<a href="list_details/{{$user_list->id}}/view">View List <span>(Shared)</span></a>
@@ -54,7 +54,7 @@
 								@else
 								<a href="list_details/{{$user_list->id}}/view">
 									<div style="height: 235px;" class="blog_post">
-										<div class="blog_image" style="background-size: auto; background-image:url(/storage/product_images/default-product.jpg)"></div>
+										<div class="blog_image" style="background-size: auto; background-image:url(/css/img/default-product.jpg)"></div>
 										<div class="blog_text" style="color: rgb(255,127,39);">{{ strtoupper($user_list->list_name)}}, <span style="color:deepskyblue;">with {{$count}} item(s) </span> </div> 
 										<div class="blog_button">
 										<a href="list_details/{{$user_list->id}}/view">View List</a>

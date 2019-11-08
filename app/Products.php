@@ -31,10 +31,9 @@ class Products extends Model
         $avatar = $product->avatar;
         $avatar_extension = $product->avatar_extension;
 
-        // $img = Image::make($avatar);
-        return 'asd';
+        $img = Image::make($avatar);
         $img->encode($avatar_extension);
-        $type = $avatar_extension;
+        $type = 'jpg';
 
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
