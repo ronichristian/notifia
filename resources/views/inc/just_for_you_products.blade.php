@@ -121,7 +121,7 @@
                                         ->distinct()
                                         ->get();
                             !!}}
-                            @if(count($linked_products) >= 0 )
+                            @if(count($linked_products) > 0 )
                                 @foreach($linked_products as $linked_product)
                                     {{!!
                                         $latestprice    = App\PostDetails::where('product_id', $linked_product->id)->orderBy('created_at', 'desc')->limit(1)->get();
