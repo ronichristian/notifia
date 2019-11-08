@@ -28,13 +28,13 @@ class Products extends Model
     {
 
         $product = Products::find($id);
-        return 'asd';
         $avatar = $product->avatar;
         $avatar_extension = $product->avatar_extension;
 
         $img = Image::make($avatar);
         $img->encode($avatar_extension);
         $type = $avatar_extension;
+        return 'asd';
 
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
