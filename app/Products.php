@@ -32,9 +32,9 @@ class Products extends Model
         $avatar_extension = $product->avatar_extension;
 
         $img = Image::make($avatar);
+        return 'asd';
         $img->encode($avatar_extension);
         $type = $avatar_extension;
-        return 'asd';
 
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
