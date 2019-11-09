@@ -63,18 +63,13 @@ class ProductController extends Controller
             $path = $request->file('image')->getRealPath();
             $logo = file_get_contents($path);
             $fileNameToStore = base64_encode($logo);
-
             // $file = Input::file('image');
             // $fileNameToStore = Image::make($file);
             // Response::make($fileNameToStore->encode('jpeg'));
-
-            // $file = Input::file('image');
-            // $extension = $request->file('image')->getClientOriginalExtension();
-            // $fileNameToStore = Image::make($file);
         }
         else
         {
-            $fileNameToStore = "default-product.jpg";
+            $fileNameToStore = "/storage/product_images/default-product.jpg";
         }
         
 
@@ -252,7 +247,7 @@ class ProductController extends Controller
         return $p_details;
     }
 
-    public function get_products()
+    public function getProducts()
     {
         $current = Carbon::now();
         $lists = UserLists::all();

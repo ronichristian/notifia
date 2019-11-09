@@ -28,6 +28,7 @@
                                                             <div class="product_image d-flex flex-column align-items-center justify-content-center">
                                                                 <a href="/commercial_product/{{$commercial_product->id}}/commercial_product">
                                                                     {{-- <img style="" src="data:{{$commercial_product->avatar}};base64,{{$commercial_product->avatar}}" alt=""> --}}
+                                                                    <img src="{{$commercial_product->getPicture($commercial_product->id)}}" alt="">
                                                                 </a>
                                                             </div>
                                                             <div style="overflow:hidden; background-color: #F2E3BA; " class="product_content">

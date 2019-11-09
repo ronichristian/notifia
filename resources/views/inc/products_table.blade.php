@@ -74,13 +74,13 @@
                                                                     @if(count($second_last_price) != 0)
                                                                         @if($second_last_price[0]['product_price'] < $price[0]['product_price'])
                                                                             <td style="color:red;" align="right">
-                                                                                {{ number_format($price[0]['product_price'],2)  }}
                                                                                 <img style="height: 10px; margin-top: -1%;" src="/css/wsis/images/red-arrow.png">
+                                                                                {{ number_format($price[0]['product_price'],2)  }}
                                                                             </td>
                                                                         @elseif($second_last_price[0]['product_price'] > $price[0]['product_price'])
                                                                             <td style="color:green;" align="right">
-                                                                                {{ number_format($price[0]['product_price'],2)  }}
                                                                                 <img style="height: 10px; margin-top: -1%;" src="/css/wsis/images/green-arrow.png">
+                                                                                {{ number_format($price[0]['product_price'],2)  }}
                                                                             </td>
                                                                         @elseif($second_last_price[0]['product_price'] == $price[0]['product_price'])
                                                                             <td align="right">{{ number_format($price[0]['product_price'],2)  }}</td>

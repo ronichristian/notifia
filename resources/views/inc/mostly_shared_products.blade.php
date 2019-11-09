@@ -121,7 +121,8 @@
                                                             <div style="background-color: #F2E3BA;" class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                                                 <div class="product_image d-flex flex-column align-items-center justify-content-center">
                                                                     <a href="/commercial_product/{{$commercial_product->id}}/commercial_product">
-                                                                        <img src="/avatar/{{$commercial_product->id}}" alt="">
+                                                                        {{-- <img src="/avatar/{{$commercial_product->id}}" alt=""> --}}
+                                                                        <img src="{{$commercial_product->getPicture($commercial_product->id)}}" alt="">
                                                                     </a>
                                                                 </div>
                                                                 <div style="margin-top: -26px; background-color: #F2E3BA;" class="product_content">

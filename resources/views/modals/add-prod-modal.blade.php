@@ -76,7 +76,7 @@
 
                         <div class="styled-input" >
                             <label >Select image to Upload</label>
-                            <input class="newsletter_input pull-right" type="file" name="image" id="image"><span>(Optional)</span>
+                            <input class="newsletter_input pull-right" type="file" value="/storage/public_images/default-product.jpg" name="image" id="image"><span>(Optional)</span>
                         </div><br>
                         
                         <button class="btn btn-info" type="submit">Submit </button>

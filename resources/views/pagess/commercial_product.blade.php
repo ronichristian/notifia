@@ -11,7 +11,10 @@
 
 				<!-- Selected Image -->
 				<div class="col-lg-5 order-lg-2 order-1">
-					<div style="background-color: #F2E3BA;" class="image_selected"><img src="/storage/product_images/{{$commercial_products->avatar}}" alt=""></div>
+					<div style="background-color: #F2E3BA;" class="image_selected">
+						{{-- <img src="/storage/product_images/{{$commercial_products->avatar}}" alt=""> --}}
+						<img src="{{$commercial_products->getPicture($commercial_products->id)}}" alt="">
+					</div>
 				</div>
 
 				<!-- Description -->
@@ -75,9 +78,13 @@
 										<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
 											<div class="viewed_image">
 												@guest
-													<a href="/view_product_guest/{{$rel->id}}/info"><img src="/storage/product_images/{{ $rel->avatar }}" alt=""></a>
+													<a href="/view_product_guest/{{$rel->id}}/info">
+														<img src="{{$rel->getPicture($rel->id)}}" alt="">
+													</a>
 												@else
-													<a href="/view_product/{{$rel->id}}/info"><img src="/storage/product_images/{{ $rel->avatar }}" alt=""></a>
+													<a href="/view_product/{{$rel->id}}/info">
+														<img src="{{$rel->getPicture($rel->id)}}" alt="">
+													</a>
 												@endguest
 											</div>
 											<div class="viewed_content text-center">

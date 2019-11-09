@@ -30,8 +30,8 @@ class Products extends Model
         $avatar = $product->avatar;
 
         $img = Image::make($avatar);
-        $img->encode('jpg');
-        $type = 'jpg';
+        $img->encode('png');
+        $type = 'png';
 
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
