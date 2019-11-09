@@ -61,7 +61,7 @@ class PagesController extends Controller
                 ->get();
         $latest_prods = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
                 ->join('stores', 'stores.id', '=', 'post_details.store_id')
-                ->select('products.id', 'products.product_name', 'products.avatar')
+                ->select('products.id', 'products.product_name', 'products.avatar', 'post_details.created_at')
                 ->where('post_details.created_at', '>', $current->subDays(7))
                 ->where('location', '=', 'valencia city') //condition for location
                 ->orderBy('post_details.created_at', 'desc')
