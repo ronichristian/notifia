@@ -70,8 +70,7 @@ class ProductController extends Controller
             $file = Input::file('image');
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = Image::make($file);
-            Response::make($fileNameToStore->encode($extension));
-            return $fileNameToStore;
+            // Response::make($fileNameToStore->encode($extension));
         }
         else
         {
