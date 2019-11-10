@@ -64,13 +64,13 @@ class ProductController extends Controller
             // $fileNameToStore = Image::make($file);
             // Response::make($fileNameToStore->encode('jpeg'));
 
-            $file = $request->file('image');
-            $fileNameToStore = base64_encode(file_get_contents($file->getRealPath()));
+            // $file = $request->file('image');
+            // $fileNameToStore = base64_encode(file_get_contents($file->getRealPath()));
 
-            // $file = Input::file('image');
-            // $extension = $request->file('image')->getClientOriginalExtension();
-            // $fileNameToStore = Image::make($file);
-            // Response::make($fileNameToStore->encode('png'));
+            $file = Input::file('image');
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $fileNameToStore = Image::make($file);
+            Response::make($fileNameToStore->encode('png'));
         }
         else
         {
