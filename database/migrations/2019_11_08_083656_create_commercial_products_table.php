@@ -23,7 +23,7 @@ class CreateCommercialProductsTable extends Migration
             // $table->binary('avatar')->nullable();
             $table->timestamps();
         });  
-        DB::statement("ALTER TABLE commercial_products ADD avatar BYTEA");
+        DB::statement("ALTER TABLE commercial_products ADD avatar MEDIUMBLOB");
     }
 
     /**

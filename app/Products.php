@@ -34,15 +34,6 @@ class Products extends Model
 
     public function getPicture($id)
     {
-        $picture = Products::find($id);
-        $avatar = Image::make($picture->avatar);
-        $response = Response::make($avatar->encode('jpeg'));
-
-        //setting content-type
-        $response->header('Content-Type', 'image/png');
-
-        return $response;
-
         $product = Products::find($id);
 
         $img = Image::make($product->avatar);

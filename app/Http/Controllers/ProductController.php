@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use App\Picture;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -24,7 +25,6 @@ use App\Users;
 use Session;
 use Charts;
 use Alert;
-use Intervention\Image\Facades\Image;
 use Auth;
 use DB;
 
@@ -69,8 +69,9 @@ class ProductController extends Controller
             // $fileNameToStore = $file->openFile()->fread($file->getSize());
 
             $file = Input::file('image');
+            $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = Image::make($file);
-            Response::make($fileNameToStore->encode('jpeg'));
+            Response::make($fileNameToStore->encode($extension));
             
         }
         else
@@ -328,7 +329,7 @@ class ProductController extends Controller
                 'lists' => $lists,  
                 ];
     }
-    
+
     public function get_picture($id)
     {
         $picture = Products::find($id);
