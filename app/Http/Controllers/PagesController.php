@@ -64,7 +64,7 @@ class PagesController extends Controller
                 ->select('products.id', 'products.product_name', 'products.avatar')
                 ->where('post_details.created_at', '>', $current->subDays(7))
                 ->where('location', '=', 'valencia city') //condition for location
-                ->orderBy('post_details.created_at', 'desc')
+                ->orderBy('products.id', 'desc')
                 ->distinct()
                 ->get();
         $latest_product = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
