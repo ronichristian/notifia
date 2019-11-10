@@ -335,7 +335,7 @@ class ProductController extends Controller
         $response = Response::make($avatar->encode('jpeg'));
 
         //setting content-type
-        $response->header('Content-Type', 'image/png');
+        $response->header('Content-Type', 'image/jpeg');
 
         return $response;
     }
