@@ -60,12 +60,13 @@ class ProductController extends Controller
 
         if($request->hasFile('image'))
         {
-            $path = $request->file('image')->getRealPath();
-            $logo = file_get_contents($path);
-            $fileNameToStore = base64_encode($logo);
             // $file = Input::file('image');
             // $fileNameToStore = Image::make($file);
             // Response::make($fileNameToStore->encode('jpeg'));
+            $file = $request->file('image');
+            // $fileNameToStore = base64_encode(file_get_contents($file->getRealPath()));
+            $fileNameToStore = $file->openFile()->fread($file->getSize());
+            
         }
         else
         {
@@ -321,5 +322,27 @@ class ProductController extends Controller
                 'mosts' => $mosts,
                 'lists' => $lists,  
                 ];
+    }
+
+    public function get_picture($id)
+    {
+        $picture = Products::find($id);
+        $avatar = Image::make($picture->avatar);
+        $response = Response::make($avatar->encode('jpeg'));
+
+        //setting content-type
+        $response->header('Content-Type', 'image/png');
+
+        return $response;
+
+        $product = Products::find($id);
+
+        $img = Image::make($product->avatar);
+        $img->encode('png');
+        $type = 'png';
+       
+        $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
+
+        return $base64;
     }
 }

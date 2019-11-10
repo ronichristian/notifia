@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\CommercialProducts;
 use App\Products;
 use Image;
 
@@ -8,17 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class CommercialProducts extends Model
 {
-    public function getPicture($id)
+    public function get_commercial_product_picture($id)
     {
-        $product = Products::find($id);
-
-        $avatar = $product->avatar;
-        $avatar_extension = $product->avatar_extension;
+        $commercial_products = CommercialProducts::find($id);
+        $avatar = $commercial_products->avatar;
 
         $img = Image::make($avatar);
-        $img->encode($avatar_extension);
-        $type = $avatar_extension;
-
+        $img->encode('png');
+        $type = 'png';
+       
         $base64 = 'data:image/' . $type . ';base64,' . base64_encode($img);
 
         return $base64;

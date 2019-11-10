@@ -101,7 +101,7 @@ Route::post('/unshare_list', 'ListController@unshare_list');
 
 Route::post('/by_location', 'PagesController@by_location');
 
-Route::get('/avatar/{id}', 'ProductController@getPicture');
+Route::get('/get_picture/{id}', 'ProductController@get_picture');
 
 
 Route::get('/get_products', 'ProductController@get_products');

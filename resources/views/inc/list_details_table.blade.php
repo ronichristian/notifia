@@ -231,20 +231,19 @@ $(document).ready(function(){
 
     $('.checker').change(function(e){
         var date_array = [];
-            var e_id = $(this).attr("id");
-            $.ajax({
-                type: 'POST',
-                url: '/get_product_details_in_list',
-                data:{data: e_id},
-                success:function(response)
-                {
-                    // swal({
-                    //     title: "Product Bought",
-                    //     icon: "success",
-                    // });
-                }
-            });
-            alert();
+        var e_id = $(this).attr("id");
+        $.ajax({
+            type: 'POST',
+            url: '/get_product_details_in_list',
+            data:{data: e_id},
+            success:function(response)
+            {
+                // swal({
+                //     title: "Product Bought",
+                //     icon: "success",
+                // });
+            }
+        });
     });
 
     //TOGGLE OF PRODUCT TO BUY

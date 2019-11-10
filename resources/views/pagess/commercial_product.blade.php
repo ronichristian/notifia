@@ -13,7 +13,7 @@
 				<div class="col-lg-5 order-lg-2 order-1">
 					<div style="background-color: #F2E3BA;" class="image_selected">
 						{{-- <img src="/storage/product_images/{{$commercial_products->avatar}}" alt=""> --}}
-						<img src="{{$commercial_products->getPicture($commercial_products->id)}}" alt="">
+						<img src="{{$commercial_products->get_commercial_product_picture($commercial_products->id)}}" alt="">
 					</div>
 				</div>
 
@@ -24,7 +24,7 @@
 						<div style="color:  #f4db78;" class="product_name">{{ucwords($commercial_products->product_name)}}</div>
 						<div class="product_text">
                             <p>
-                                {{$commercial_products->description}}
+                                {{ ucwords($commercial_products->description) }}
                             </p>
                         </div>
 						<div style="margin-top: -17%;" class="order_info d-flex flex-row">
@@ -60,56 +60,43 @@
 						<!-- Recently Viewed Slider -->
 
 						<div class="owl-carousel owl-theme viewed_slider">
-							@foreach($categories as $cat)
-								<div style="display: none">
-									{!!
-									$related = App\PostDetails::distinct()
-										->join('products', 'products.id', '=', 'post_details.product_id')
-										->select('avatar', 'product_name', 'product_id')
-										->where('category_id', $cat->id)
-										->distinct()
-										->get();
-									
-									!!}
-								</div>
-								<!-- Recently Viewed Item -->
-								@foreach($related as $rel)
-									<div class="owl-item">
-										<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="viewed_image">
+							<!-- Recently Viewed Item -->
+							@foreach($products as $product)
+								<div class="owl-item">
+									<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+										<div class="viewed_image">
+											@guest
+												<a href="/view_product_guest/{{$product->id}}/info">
+													<img src="{{$product->getPicture($product->id)}}" alt="">
+												</a>
+											@else
+												<a href="/view_product/{{$product->id}}/info">
+													<img src="{{$product->getPicture($product->id)}}" alt="">
+												</a>
+											@endguest
+										</div>
+										<div class="viewed_content text-center">
+											<div style="display: none">
+												{!!
+												$latestprice = App\PostDetails::where('product_id', $product->id)
+													->orderBy('created_at', 'desc')->limit(1)->get();	
+												!!}
+											</div>
+											<div class="viewed_price">P{{ number_format($latestprice[0]['product_price'],2) }}</div>
+											<div class="viewed_name">
 												@guest
-													<a href="/view_product_guest/{{$rel->id}}/info">
-														<img src="{{$rel->getPicture($rel->id)}}" alt="">
-													</a>
+													<a href="/view_product_guest/{{$product->id}}/info">{{ ucwords($product->product_name) }}</a>
 												@else
-													<a href="/view_product/{{$rel->id}}/info">
-														<img src="{{$rel->getPicture($rel->id)}}" alt="">
-													</a>
+													<a href="/view_product/{{$product->id}}/info">{{ ucwords($product->product_name) }}</a>
 												@endguest
 											</div>
-											<div class="viewed_content text-center">
-												<div style="display: none">
-													{!!
-													$latestprice = App\PostDetails::where('product_id', $rel->product_id)
-														->orderBy('created_at', 'desc')->limit(1)->get();	
-													!!}
-												</div>
-												<div class="viewed_price">P{{ number_format($latestprice[0]['product_price'],2) }}</div>
-												<div class="viewed_name">
-													@guest
-														<a href="/view_product_guest/{{$rel->id}}/info">{{ ucwords($rel->product_name) }}</a>
-													@else
-														<a href="/view_product/{{$rel->id}}/info">{{ ucwords($rel->product_name) }}</a>
-													@endguest
-												</div>
-											</div>
-											<ul class="item_marks">
-												{{-- <li class="item_mark item_discount">-25%</li>
-												<li class="item_mark item_new">new</li> --}}
-											</ul>
 										</div>
+										<ul class="item_marks">
+											{{-- <li class="item_mark item_discount">-25%</li>
+											<li class="item_mark item_new">new</li> --}}
+										</ul>
 									</div>
-								@endforeach
+								</div>
 							@endforeach
 						</div>
 					</div>

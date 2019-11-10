@@ -35,9 +35,16 @@ class CommercialProductController extends Controller
 
         $store_names_for_add_product = Stores::select('store_name')->distinct()->get();
         $products_for_add_product = Products::all();
-        
+
+        $products = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
+                            ->join('categories', 'categories.id', '=', 'post_details.category_id')
+                            ->select('products.product_name', 'products.id', 'products.avatar', 'categories.category_name')
+                            ->distinct()
+                            ->get();
+
         return view('pagess.commercial_product',[
             'stores' => $stores,
+            'products' => $products,
             'store_names' => $store_names,
             'categories' => $categories,
             'commercial_products' => $commercial_products,
