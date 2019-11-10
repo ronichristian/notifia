@@ -70,7 +70,7 @@ class ProductController extends Controller
             $file = Input::file('image');
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = Image::make($file);
-            // Response::make($fileNameToStore->encode($extension));
+            Response::make($fileNameToStore->encode('png'));
         }
         else
         {
@@ -332,10 +332,10 @@ class ProductController extends Controller
     {
         $picture = Products::find($id);
         $avatar = Image::make($picture->avatar);
-        $response = Response::make($avatar->encode('jpeg'));
+        $response = Response::make($avatar->encode('png'));
 
         //setting content-type
-        $response->header('Content-Type', 'image/jpeg');
+        $response->header('Content-Type', 'image/png');
 
         return $response;
     }
