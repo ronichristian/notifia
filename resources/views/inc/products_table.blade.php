@@ -47,9 +47,8 @@
                                                                 <span style="border: 1px solid gray; border-radius: 5px; padding: 4%;">                                                              
 {{-- <img id="thumbnail" class="thumbnail" style="height: 20px;" id="tr_show_hover" src="/storage/product_images/{{$product_compare->avatar}}" alt="{{$product_compare->avatar}}"> --}}
 {{-- <img id="thumbnail" class="thumbnail" style="height: 20px;" id="tr_show_hover" src="data:{{$product_compare->avatar}};base64,{{$product_compare->avatar}}  " alt="{{$product_compare->avatar}}"> --}}
-{{-- <img id="thumbnail" class="thumbnail" style="height: 20px;" src="avatar/{{ $product_compare->id }}" alt=""> --}}
-{{-- <img id="thumbnail" class="thumbnail" style="height: 20px;" src="{{$product_compare->getPicture($product_compare->id)}}" alt=""> --}}
-<img id="thumbnail" class="thumbnail" style="height: 20px;" src="/get_picture/{{$product_compare->id}} " alt="">
+<img id="thumbnail" class="thumbnail" style="height: 20px;" src="{{$product_compare->getPicture($product_compare->id)}}" alt="">
+{{-- <img id="thumbnail" class="thumbnail" style="height: 20px;" src="/get_picture/{{$product_compare->id}} " alt=""> --}}
                                                                 </span>
                                                             </td>
                                                             @for($i=0; $i < count($store_names); $i++)

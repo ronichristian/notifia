@@ -22,6 +22,7 @@ use App\Category;
 use App\Products;
 use App\Stores;
 use Carbon\Carbon;
+use App\Predictions;
 use App\User;
 use Image;
 use Auth;
@@ -83,7 +84,8 @@ class PagesController extends Controller
                 ->where('location', '=', 'valencia city') //condition for location
                 ->orderBy(\DB::raw('count(post_details.product_id)'), 'DESC')
                 ->limit(3)
-                ->get();       
+                ->get();  
+
         return view('pagess.index',
                     ['store_names_for_add_product' => $store_names_for_add_product,
                     'products_for_add_product' => $products_for_add_product,
@@ -102,7 +104,7 @@ class PagesController extends Controller
                     'store_id' => $store_id,
                     'result' => $result,
                     'stores' => $stores,
-                    'mosts' => $mosts,  
+                    'mosts' => $mosts,
                     ]);
     }
     
@@ -591,17 +593,20 @@ class PagesController extends Controller
     //VIEW LIST DETAILS WHEN LOGGED IN
     public function list_details($id) 
     {
+        $current = Carbon::now();
+        $to_end = Carbon::now()->addDays(2);
         $user_id = auth()->user()->id;
         $categories = Category::all();
         $user_list = UserLists::where('id', $id)->get();
         $store_names = Stores::select('store_name', 'id', 'location')->get();
+
         $list_details = DB::table('list_details')
-        ->select('list_details.product_name', 'list_details.is_checked','list_details.user_list_id','list_details.id','list_details.product_price','list_details.subtotal','list_details.store_name','list_details.quantity')
+        ->select('prediction','list_details.product_id', 'list_details.product_name', 'list_details.is_checked','list_details.user_list_id','list_details.id','list_details.product_price','list_details.subtotal','list_details.store_name','list_details.quantity')
         ->where('user_list_id', $id)
         ->orderBy('store_name', 'asc')
-        ->orderBy('created_at', 'asc')
+        ->orderBy('list_details.id', 'asc')
         ->get();
-        
+
         $products = Products::all();
         $stores = Stores::all();
         $locations = Stores::select('location', 'id')->get();
@@ -612,6 +617,7 @@ class PagesController extends Controller
         $products_for_add_product = Products::all();
 
         return view('pagess.list_details')
+                    ->with('current', $current)
                     ->with('user_list', $user_list)
                     ->with('list_details', $list_details)
                     ->with('id', $id)

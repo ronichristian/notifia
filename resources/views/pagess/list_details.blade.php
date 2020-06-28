@@ -194,6 +194,7 @@ $(document).ready(function(){
         cache: false,
         async:false,
         success:function(data){
+            console.log(data)
             $('#list_table').html(data).fadeIn();
         } 
     });

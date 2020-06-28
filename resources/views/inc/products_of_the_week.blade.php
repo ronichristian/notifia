@@ -1,3 +1,13 @@
+
+{{-- <div id="products_of_the_week" >
+    <div>
+        <ul v-for="product in products">
+            <li>@{{product.product_name}}</li>
+        </ul>
+    </div>
+</div> --}}
+
+
 <div  class="new_arrivals">
     <div style="margin-top: -10%;" class="container">
         <div class="row">
@@ -15,7 +25,7 @@
                             <!-- Product Panel -->
                             <div class="product_panel panel active">
                                 <div class="arrivals_slider slider">
-                                        @if(count($latest_prods) > 0)
+                                        {{-- @if(count($latest_prods) > 0)
                                             @foreach($latest_prods as $latest_prod)
                                             {!!
                                                 $index =    $loop->index;
@@ -27,7 +37,6 @@
                                                         <div style="background-color: #F2E3BA; border-radius: 5px;" class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
                                                             <div class="product_image d-flex flex-column align-items-center justify-content-center">
                                                                 <a href="/commercial_product/{{$commercial_product->id}}/commercial_product">
-                                                                    {{-- <img style="" src="data:{{$commercial_product->avatar}};base64,{{$commercial_product->avatar}}" alt=""> --}}
                                                                     <img src="{{$commercial_product->get_commercial_product_picture($commercial_product->id)}}" alt="">
                                                                 </a>
                                                             </div>
@@ -73,12 +82,10 @@
                                                     <div class="product_image d-flex flex-column align-items-center justify-content-center">
                                                         @guest
                                                             <a href="/view_product_guest/{{$latest_prod->id}}/info">
-                                                                {{-- <img src="data:{{$latest_prod->avatar}};base64,{{$latest_prod->avatar}}" alt=""> --}}
                                                                 <img src="{{$latest_prod->getPicture($latest_prod->id)}}" alt="">
                                                             </a>
                                                         @else
                                                             <a href="/view_product/{{$latest_prod->id}}/info">
-                                                                {{-- <img src="/avatar/{{$latest_prod->id}}" alt=""> --}}
                                                                 <img src="{{$latest_prod->getPicture($latest_prod->id)}}" alt="">
                                                             </a>
                                                         @endguest
@@ -154,25 +161,23 @@
                                                 </div>
                                             </div>
                                             @endforeach
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 <div class="arrivals_slider_dots_cover"></div>
                             </div>
                         </div>
 
-                        @if(count($latest_product) != 0)
+                        {{-- @if(count($latest_product) != 0)
                             <div class="col-lg-3">
                                 <div class="arrivals_single clearfix">
                                     <div class="d-flex flex-column align-items-center justify-content-center">
                                         <div class="arrivals_single_image">
                                             @guest
                                                 <a style="color:white;" href="/view_product_guest/{{ $latest_product[0]['id'] }}/info">
-                                                    {{-- <img style="height: 200px" src="/avatar/{{ $latest_prod->id }}" alt=""> --}}
                                                     <img style="height: 200px" src="{{$latest_prod->getPicture($latest_product[0]['id'])}}" alt="">
                                                 </a>
                                             @else
                                                 <a style="color:white;" href="/view_product/{{ $latest_product[0]['id'] }}/info">
-                                                    {{-- <img style="height: 200px" src="/avatar/{{ $latest_prod->id }}" alt=""> --}}
                                                     <img style="height: 200px" src="{{$latest_prod->getPicture($latest_product[0]['id'])}}" alt="">
                                                 </a>
                                             @endguest
@@ -217,7 +222,7 @@
                             </div>
                         @else
                         
-                        @endif
+                        @endif --}}
                     </div>   
                 </div>
             </div>
@@ -226,3 +231,143 @@
 </div>
 
 
+{{-- <div  class="new_arrivals">
+    <div style="margin-top: -10%;" class="container">
+        <div class="row">
+            <div class="col">
+                <div class="tabbed_container">
+                    <div class="tabs clearfix tabs-right">
+                        <div class="new_arrivals_title">Shared Products of the Week</div>
+                        <ul class="clearfix">
+                            <li class="active">Featured</li>
+                        </ul>
+                        <div class="tabs_line"><span></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9" style="z-index:1;">
+                            <!-- Product Panel -->
+                            <div class="product_panel panel active">
+                                <div id="products_of_the_week" class="arrivals_slider slider">
+                                    <div v-for="product in products" class="arrivals_slider_item">
+                                        <div class="border_active"></div>
+                                        <div class="product_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+                                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                @guest
+                                                    <a :href="'/view_product_guest/' + product.id+'/info'">
+                                                        <img :src="'/avatar/'+product.id" />
+                                                    </a>
+                                                @else
+                                                    <a :href="'/view_product/' + product.id+'/info'">
+                                                        <img :src="'/avatar/'+product.id" />
+                                                    </a>
+                                                @endguest
+                                            </div>
+                                            <div style="overflow:hidden;" class="product_content">
+                                                <div class="product_price">
+                                                    
+                                                    @guest
+                                                        <a style="color:red; margin-top: -1%;" :href="'/view_product_guest/' + product.id+'/info'">
+                                                            
+                                                        </a>
+                                                    @else
+                                                        <a style="color:red; margin-top: -1%;" :href="'/view_product/' + product.id+'/info'">
+                                                            
+                                                        </a>
+                                                    @endguest
+                                                </div>
+                                                <div style="margin-top: -2.5%;" class="product_name">
+                                                    <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                        @guest
+                                                            <a :href="'/view_product_guest/' + product.id+'/info'">@{{product.product_name}}</a>
+                                                        @else
+                                                            <a :href="'/view_product/' + product.id+'/info'">@{{product.product_name}}</a>
+                                                        @endguest
+                                                    </div>
+                                                </div>
+                                                <div style="background-color: #FFFCF7;" class="product_extras">
+                                                    @guest
+                                                        <a style="color:white;" :href="'/view_product_guest/' + product.id+'/info'"> 
+                                                            <button class="product_cart_button">
+                                                                Quick View
+                                                            </button>
+                                                        </a>
+                                                    @else
+                                                        <a style="color:white;" :href="'/view_product/' + product.id+'/info'">
+                                                            <button class="product_cart_button">
+                                                                Quick View
+                                                            </button>
+                                                        </a>
+                                                    @endguest
+                                                </div>
+                                            </div>
+                                            <div style="background: rgb(255,127,39);" class="product_fav">
+                                                <i class="fa fa-hear"></i>
+                                                @guest
+                                                    <a :href="'/view_product_guest/' + product.id+'/info'">
+                                                        <p style="margin-top: 8px; color:white; font-size: 12px;">view</p>
+                                                    </a>
+                                                @else
+                                                    <a :href="'/view_product/' + product.id+'/info'">
+                                                        <p style="margin-top: 8px; color:white; font-size: 12px;">view</p>
+                                                    </a>
+                                                @endguest
+                                            </div>
+                                            <ul class="product_marks">
+                                                <li class="product_mark product_new">new</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="arrivals_slider_dots_cover"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="arrivals_single clearfix">
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <div class="arrivals_single_image">
+                                        @guest
+                                            <a style="color:white;" :href="'/view_product_guest/' + latest_prod.id+'/info'">
+                                                <img style="height: 200px" src="{{$latest_prod->getPicture($latest_product[0]['id'])}}" alt="">
+                                            </a>
+                                        @else
+                                            <a style="color:white;" :href="'/view_product/' + latest_prod.id+'/info'">
+                                                <img style="height: 200px" src="{{$latest_prod->getPicture($latest_product[0]['id'])}}" alt="">
+                                            </a>
+                                        @endguest
+                                    </div>
+                                    <div class="arrivals_single_content">
+                                        <div class="arrivals_single_name_container clearfix">
+                                            <div class="arrivals_single_name">
+                                                <a>asd</a>
+                                            </div><br>
+                                            <div style="color:red;" class="arrivals_single_price ">asd</div>
+                                        </div>
+                                        @guest
+                                            <a style="color:white;" :href="'/view_product_guest/' + latest_prod.id+'/info'">
+                                                <button class="arrivals_single_button">Quick View</button>
+                                            </a>
+                                        @else 
+                                            <a style="color:white;" :href="'/view_product_guest/' + latest_prod.id+'/info'">
+                                                <button class="arrivals_single_button">Quick View</button>
+                                            </a>
+                                        @endguest
+                                    </div>
+                                    <div style="text-algin:center; background: rgb(255,127,39);" class="arrivals_single_fav product_fav active">
+                                            <a href="#">
+                                                <p style="margin-top: 8px; margin-left: 5px; color:white; font-size: 12px;">view</p>
+                                            </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+<script src="{{ asset('js/vue-js/axios.js') }}"></script>
+<script src="{{ asset('js/vue-js/vue2.1.3.js') }}"></script>
+<script src="{{ asset('js/vue-js/product.js') }}"></script>

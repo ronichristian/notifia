@@ -44,8 +44,6 @@
 				<div class="col-lg-2 col-sm-2 col-2 order-1">
 					<div class="logo_container">
 						<div class="logo" style="">
-							{{-- <h6 style="margin-top:-10px; margin-left:80px; margin-top:-30px;">NOTIFIA</h6> --}}
-							{{-- <a style="margin-top:-20%;" href="#">NOTIFIA</a> --}}
 							<img style="" src="/css/wsis/images/made-icon1.png"><a style="" href="#">NOTIFIA</a>
 						</div>
 					</div>
@@ -127,25 +125,69 @@
 						</div>
 
 						<!-- Cart -->
-						{{-- <div class="cart">
+						<div class="cart">
 							<div class="cart_container d-flex flex-row align-items-center justify-content-end">
-								<div class="cart_icon">
-									<img src="/css/wsis/images/cart.png" alt="">
-									<div class="cart_count"><span>10</span></div>
-								</div>
-								<div class="cart_content">
-									<div class="cart_text"><a href="#">Cart</a></div>
-									<div class="cart_price">$85</div>
-								</div>
+							
+								@guest
+
+								@else
+									<li style="list-style-type: none;" class="nav-item dropdown">
+										<button type="button" class="btn btn-primary" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fa fa-bell fa-1x"></i> <span class="badge badge-light">4</span>
+										</button>
+										<ul class="dropdown-menu">
+											<li class="head bg-dark">
+												<div class="row">
+													<div class="col-lg-9 col-sm-9 col-9">
+														<a href="" class="float-right text-light">Mark all as read</a>
+													</div>
+												</div>
+											</li>
+											<li class="notification-box">
+												<div class="row">
+													<div class="col-lg-1 col-sm-1 col-1 text-center">
+															
+													</div> 
+													<div class="col-lg-8 col-sm-8 col-8">
+														<strong class="text-info">David John</strong>
+														<div>
+														Lorem ipsum dolor sit amet, consectetur
+														</div>
+														<small class="text-warning">27.11.2015, 15:00</small>
+													</div>  
+												</div>
+											</li>
+											<li class="notification-box bg-gray">
+												<div class="row">
+													<div class="col-lg-1 col-sm-1 col-1 text-center">
+															
+													</div>   
+													<div class="col-lg-8 col-sm-8 col-8">
+														<strong class="text-info">David John</strong>
+														<div>
+														Lorem ipsum dolor sit amet, consectetur
+														</div>
+														<small class="text-warning">27.11.2015, 15:00</small>
+													</div>    
+												</div>
+											</li>
+											<li class="footer bg-dark text-center">
+												<a href="" class="text-light">View All</a>
+											</li>
+										</ul>
+									</li>
+									@endguest
+									
 							</div>
-						</div> --}}
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Main Navigation -->
 
+	<!-- Main Navigation -->
 	<nav class="main_nav">
 		<div class="container">
 			<div class="row">
@@ -174,7 +216,7 @@
 
 						<div class="main_nav_menu ml-auto">
 							@guest
-								<ul style="margin-top: 1%;" class="standard_dropdown main_nav_dropdown">
+								<ul style="margin-top: 1.5%; margin-left: -65%;" class="standard_dropdown main_nav_dropdown">
 									<li class="hassubs">
 										<a style="height: 30px;" href="#">All Stores<i class="fas fa-chevron-down"></i></a>
 										<ul>
@@ -189,11 +231,10 @@
 										</ul>
 									</li>
 									<li><a href="/home"><i class="fa fa-home"></i>Home</a></li>
-									{{-- <li><a href="/home">Share Product<i class="fas fa-chevron-down"></i></a></li> --}}
 									<li><a href="" data-toggle="modal" data-target="#login-modal">Create Your Shopping List<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							@else
-								<ul style="margin-top: 1%;" class="standard_dropdown main_nav_dropdown">
+								<ul style="margin-top: 1.5%; margin-left: -50%;" class="standard_dropdown main_nav_dropdown">
 									<li class="hassubs">
 										<a style="height: 30px;" href="#">All Stores<i class="fas fa-chevron-down"></i></a>
 										<ul>
@@ -209,7 +250,6 @@
 									</li>
 									<li><a href="/home"><i class="fa fa-home"></i>Home</a></li>
 									<li><a href="" data-toggle="modal" data-target="#addproductmodal">Share Product<i class="fas fa-chevron-down"></i></a></li>
-									{{-- <li><a href="/home">Share Product<i class="fas fa-chevron-down"></i></a></li> --}}
 									<li><a href="/create_list">Create Your Shopping List<i class="fas fa-chevron-down"></i></a></li>
 								</ul>
 							@endguest
@@ -300,7 +340,7 @@
 								@foreach($stores_for_header_page as $store)
 									<li class="page_menu_item">
 										<a href="/products_in_store_guest/{{$store->id}}/products_in_store_guest">{{ ucwords($store->store_name) }}
-										<span style="font-size: 12px">{{ ucwords($store->location) }}</span>
+										<span style="text-decoration: none;" style="font-size: 12px">{{ ucwords($store->location) }}</span>
 											<i class="fas fa-chevron-down"></i>
 										</a>
 									</li>

@@ -1,6 +1,7 @@
 <table style="white-space:nowrap;" class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
         <tr>
+            <td>Prediction</td>
             <td>Check</td>
             {{-- <td></td> --}}
             <td>Product Name</td>
@@ -15,8 +16,14 @@
         </tr>
     </thead>
     <tbody id="table_body">
+        
         @for($i=0; $i < count($list_details); $i++)
             <tr class="toggle_checked " id="table_row">
+                <td id="day_row">
+                    <input type="hidden" value="{{ $list_details[$i]->prediction }}" id="days">
+                    {{ $list_details[$i]->prediction }}
+                </td>
+
                 <td align="left">
                     <label style="float:left;" class="switch ">
                         <input type="checkbox" {{ $list_details[$i]->is_checked == 1 ? "checked" : '' }}  id="{{$list_details[$i]->id}}" value="{{$list_details[$i]->id}}" name="choice2" class="success checker" />
@@ -51,7 +58,7 @@
                 </td>
 
                 <td>
-                    <button style=" cursor:pointer;" id="{{ $list_details[$i]->id }}" type="button" class="btn btn-danger btn-sm delete_item">
+                    <button style=" cursor:pointer;" id`="{{ $list_details[$i]->id }}" type="button" class="btn btn-danger btn-sm delete_item">
                         <i class="fa fa-trash"></i>
                     </button>
                     <button style=" cursor:pointer;" id="{{ $list_details[$i]->id }}" type="button" class="btn btn-info btn-sm update_item" data-toggle="modal" data-target="#update-item-modal">
@@ -71,7 +78,6 @@
                 </div>
                 
             </tr>
-
             @if($i >= $count-1)
                 <tr style="background-color: #efe9e5; " id="subtotal_by_store_row">
                     <td></td>
@@ -88,6 +94,7 @@
                         <span style="font-size:10px; font-weight: 600;"> Total Qty</span>
                         <span style="border: 1px solid grey; border-radius: 5px; padding: 5px; font-weight:600; color:green;">{{ $total_qty }}</span>
                     </td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -115,9 +122,11 @@
                             <span style="border: 1px solid grey; border-radius: 5px; padding: 5px; font-weight:600; color:green;">{{ $total_qty }}</span>
                         </td>
                         <td></td>
+                        <td></td>
                         <td class=""></td>
                     </tr>
                     <tr style="background: lightgray;">
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -149,6 +158,19 @@ $(document).ready(function(){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    var days = $('#days').val();
+    var date_start = $('#date_start').val();
+
+    // $.ajax({
+    //     url: "/days",
+    //     method: "GET",
+    //     data: {days:days},
+    //     success:function(response)
+    //     { 
+    //         console.log(response) 
+    //     }
+    // });
+
 
     //INPUT PRODUCT NAME
     if( $('#add_product_name').val("") )
@@ -229,30 +251,38 @@ $(document).ready(function(){
     var total_checked = $('#total_of_checked_prods').text().replace(",", "");
     price_array.push( parseFloat(total_checked) );
 
-    $('.checker').change(function(e){
-        var date_array = [];
-        var e_id = $(this).attr("id");
-        $.ajax({
-            type: 'POST',
-            url: '/get_product_details_in_list',
-            data:{data: e_id},
-            success:function(response)
-            {
-                // swal({
-                //     title: "Product Bought",
-                //     icon: "success",
-                // });
-            }
-        });
-    });
-
     //TOGGLE OF PRODUCT TO BUY
     $('.checker').change(function(e){ 
         var products = document.querySelector('tbody');
         
         if($(this).prop("checked") == true)
         { 
+            //DATE FOR PREDICTION MODULE
+            var date = new Date();
+            var currentDate = new Date();
+
+            var date = currentDate.getDate();
+            var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+            var year = currentDate.getFullYear();
+
+            var dateString = year + "-" +(month + 1) + "-" + date;
             
+            var e_id = $(this).attr("id");
+            var qty_to_insert = $('#qty_to_insert').val();
+            
+            $.ajax({
+                type: 'POST',
+                url: '/add_date_start_to_predict',
+                data:{data: e_id, qty: qty_to_insert},
+                success:function(response)
+                {
+                    console.log(response);
+                    ds = response['ds'];
+                    // console.log(response['ds']);
+                }
+            });
+
+            //UPDATE PRODUCT STATUS
             var product_price = parseFloat($(this).closest("tr").find("#subtotal").text().replace(",", ""));
             var store_name = $(this).closest("tr").find("#store_name").text();
             var user_list_id = $('#list_id_holder').val();
@@ -314,6 +344,28 @@ $(document).ready(function(){
         }
         else
         {
+            //DATE FOR PREDICTION MODULE
+            var date = new Date();
+            var currentDate = new Date();
+
+            var date = currentDate.getDate();
+            var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+            var year = currentDate.getFullYear();
+
+            var dateString = year + "-" +(month + 1) + "-" + date;
+            
+            var e_id = $(this).attr("id");
+            $.ajax({
+                type: 'POST',
+                url: '/add_date_end_to_predict',
+                data:{data: e_id},
+                success:function(response)
+                {
+                    console.log(response);
+                }
+            });
+            
+            //UPDATE PRODUCT STATUS
             var product_price = parseFloat($(this).closest("tr").find("#subtotal").text().replace(",", ""));
             var store_name = $(this).closest("tr").find("#store_name").text();
             var user_list_id = $('#list_id_holder').val();

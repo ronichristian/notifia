@@ -61,16 +61,12 @@ class ProductController extends Controller
         if($request->hasFile('image'))
         {
             // $file = Input::file('image');
+            // $extension = $request->file('image')->getClientOriginalExtension();
             // $fileNameToStore = Image::make($file);
-            // Response::make($fileNameToStore->encode('jpeg'));
-
-            // $file = $request->file('image');
-            // $fileNameToStore = base64_encode(file_get_contents($file->getRealPath()));
-
-            $file = Input::file('image');
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $fileNameToStore = Image::make($file);
-            Response::make($fileNameToStore->encode('png'));
+            // Response::make($fileNameToStore->encode('png'));
+            
+            $file = $request->file('image');
+            $fileNameToStore = base64_encode(file_get_contents($file->getRealPath()));
         }
         else
         {
@@ -252,82 +248,6 @@ class ProductController extends Controller
         return $p_details;
     }
 
-    public function getProducts()
-    {
-        $current = Carbon::now();
-        $lists = UserLists::all();
-        $products = Products::all();  
-        $categories = Category::all();
-        $post_details = PostDetails::all(); 
-        $user_lists = UserLists::where('is_shared', '=', 1)->get();     
-        $stores = Stores::where('location', '=', 'valencia city')->get();
-        $locations = Stores::select('location', 'id')->distinct()->get();
-        $location_names = Stores::select('location')->distinct()->get();
-        
-        $store_names_for_add_product = Stores::select('store_name')->distinct()->get();
-        $products_for_add_product = Products::all();
-
-        $stores_for_header_page = Stores::select('store_name', 'id', 'location')->get();
-        $store_names_for_add_product = Stores::select('store_name')->distinct()->get();
-        $store_names = Stores::select('store_name', 'id', 'location')->where('location', '=', 'valencia city')->get();
-        $commercial_products = CommercialProducts::where('created_at', '>', $current->subDays(14))->limit(2)->get();
-        $store_id = PostDetails::select('store_id', 'created_at')->orderBy('created_at', 'desc')->distinct()->get();
-
-        $result = count($products);
-       
-        $products_compare = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
-                ->join('stores', 'stores.id', '=', 'post_details.store_id')
-                ->select('products.avatar', 'products.product_name', 'products.id')
-                ->where('location', '=', 'valencia city') //condition for location
-                ->distinct()
-                ->get();
-        $latest_prods = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
-                ->join('stores', 'stores.id', '=', 'post_details.store_id')
-                ->select('products.id', 'products.product_name', 'products.avatar')
-                ->where('post_details.created_at', '>', $current->subDays(7))
-                ->where('location', '=', 'valencia city') //condition for location
-                ->orderBy('post_details.id', 'desc')
-                ->distinct()
-                ->get();
-        $latest_product = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
-                ->join('stores', 'stores.id', '=', 'post_details.store_id')
-                ->select('post_details.category_id', 'products.id', 'products.product_name', 'products.avatar', 'post_details.created_at')
-                ->orderBy('post_details.created_at', 'desc')
-                ->where('location', '=', 'valencia city') //condition for location
-                ->distinct()
-                ->limit(1)
-                ->get();   
-        $mosts =  Products::join('post_details', 'post_details.product_id', '=', 'products.id')
-                ->join('categories','categories.id', '=', 'post_details.category_id')
-                ->join('stores', 'stores.id', '=', 'post_details.store_id')
-                ->select('products.id','product_name', 'category_name', 'category_id')
-                ->groupBy('products.id', 'product_name', 'category_name', 'category_id')
-                ->where('location', '=', 'valencia city') //condition for location
-                ->orderBy(\DB::raw('count(post_details.product_id)'), 'DESC')
-                ->limit(3)
-                ->get();       
-        return ['store_names_for_add_product' => $store_names_for_add_product,
-                'products_for_add_product' => $products_for_add_product,
-                'stores_for_header_page' => $stores_for_header_page,
-                'commercial_products' => $commercial_products,
-                'products_compare' => $products_compare,
-                'location_names' => $location_names,
-                'latest_product' => $latest_product, 
-                'latest_prods' => $latest_prods,
-                'post_details' => $post_details,
-                'store_names' => $store_names,
-                'categories' => $categories,
-                'user_lists' => $user_lists,
-                'locations' => $locations,
-                'products' => $products,
-                'store_id' => $store_id,
-                'result' => $result,
-                'stores' => $stores,
-                'mosts' => $mosts,
-                'lists' => $lists,  
-                ];
-    }
-
     public function get_picture($id)
     {
         $picture = Products::find($id);
@@ -338,5 +258,32 @@ class ProductController extends Controller
         $response->header('Content-Type', 'image/png');
 
         return $response;
+    }
+
+    public function get_products()
+    {
+        $current = Carbon::now();
+        $latest_prods = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
+                ->join('stores', 'stores.id', '=', 'post_details.store_id')
+                ->select('products.id', 'products.product_name', 'products.avatar')
+                ->where('post_details.created_at', '>', $current->subDays(7))
+                ->where('location', '=', 'valencia city') //condition for location
+                ->orderBy('products.id', 'desc')
+                ->distinct()
+                ->get();
+        return $latest_prods;
+    }
+
+    public function get_latest_product()
+    {
+        $latest_product = Products::join('post_details', 'post_details.product_id', '=', 'products.id')
+                ->join('stores', 'stores.id', '=', 'post_details.store_id')
+                ->select('post_details.category_id', 'products.id', 'products.product_name', 'products.avatar', 'post_details.created_at')
+                ->orderBy('post_details.created_at', 'desc')
+                ->where('location', '=', 'valencia city') //condition for location
+                ->distinct()
+                ->limit(1)
+                ->get(); 
+        return $latest_product;
     }
 }

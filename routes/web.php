@@ -103,5 +103,11 @@ Route::post('/by_location', 'PagesController@by_location');
 
 Route::get('/get_picture/{id}', 'ProductController@get_picture');
 
-
+Route::get('/get_latest_product', 'ProductController@get_latest_product');
 Route::get('/get_products', 'ProductController@get_products');
+
+Route::get('/avatar/{id}', 'ProductController@get_picture');
+
+Route::post('/add_date_start_to_predict', 'PredictionController@add_date_start_to_predict');
+Route::post('/add_date_end_to_predict', 'PredictionController@add_date_end_to_predict');
+Route::get('/days', 'PredictionController@days');

@@ -10,6 +10,7 @@ use App\PostDetails;
 use App\ListDetails;
 use App\UserLists;
 use App\Products;
+use Carbon\Carbon;
 use Alert;
 use DB;
 
@@ -90,7 +91,7 @@ class ListController extends Controller
     {
         $product = $request->get('data');
         
-        $list_details           = new ListDetails();
+        $list_details                   = new ListDetails();
         $list_details->product_name     = $product['product_name'];
         $list_details->store_name       = strtolower($product['store_name']);
         $list_details->quantity         = $product['qty'];
@@ -102,7 +103,6 @@ class ListController extends Controller
         $list_details->save();
 
         return $product;
-        
     }
     
     public function delete_item(Request $request)
@@ -266,10 +266,5 @@ class ListController extends Controller
         return $list_id;
     }
 
-    public function get_product_details_in_list(Request $request)
-    {
-        $list_id = $request->get('data');
-        $list = ListDetails::where('user_list_id',$list_id)->get();
-        return $list->product_name;
-    }
+    
 }

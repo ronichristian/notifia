@@ -1,32 +1,27 @@
 
 
 new Vue({
-    el: '#share_products_in_the_week',
+    el: '#products_of_the_week',
 
     data: {
-        products: [],
-        
-        id: '',
-		e_id: '',
-		p_product_name: '',
-		p_product_qty: '',    
-		p_product_price: '',
-		
-		newItem: { 'product_name': '','product_qty': '','product_price': '' },
-    },
-   
+		products: [],
+	},
+	
     mounted() {
         this.getProducts();
-    },
-
+	},
+	
     methods: {
         getProducts: function getProducts(){
             var _this = this;
 
             axios.get('/get_products').then(function (response) {
+				console.log(response.data);
                 _this.products = response.data;
             });
-        },
+		},
+		
+	
 
         // createItem: function createItem() {
 		// 	var _this = this;

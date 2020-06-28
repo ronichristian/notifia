@@ -30,11 +30,65 @@
         font-weight: 500;
         color: #0e8ce4;
     }
+        
+    /************/
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+        background-color: #17A2B8;
+    }
+    .head{
+        padding:5px 15px;
+        border-radius: 3px 3px 0px 0px;
+    }
+    .dropdown-menu{
+        top: 60px;
+        right: 0px;
+        left: unset;
+        width: 290px;
+        box-shadow: 0px 5px 7px -1px #c1c1c1;
+        padding-bottom: 0px;
+        padding: 0px;
+    }
+    .dropdown-menu:before{
+        content: "";
+        position: absolute;
+        top: -20px;
+        right: 12px;
+        border:10px solid #343A40;
+        border-color: transparent transparent #343A40 transparent;
+    }
+    .notification-box{
+        padding: 10px 0px; 
+    }
+    .bg-gray{
+        background-color: #eee;
+    }
+    @media (max-width: 640px) {
+        .dropdown-menu{
+            top: 50px;
+            left: -16px;  
+            width: 290px;
+        } 
+        .nav{
+            display: block;
+        }
+        .nav .nav-item,.nav .nav-item a{
+            padding-left: 0px;
+        }
+        .message{
+            font-size: 13px;
+        }
+
+    }
+    .footer{
+        padding:5px 15px;
+        border-radius: 0px 0px 3px 3px; 
+    }
 </style>
 <body>
 
 <div class="super_container">
-    @include('inc.header')
+    @include('inc.navbar')
     @yield('content')
     @include('inc.footerr')
 </div>

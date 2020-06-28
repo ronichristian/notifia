@@ -15,6 +15,7 @@ class CreateListDetailsTable extends Migration
     {
         Schema::create('list_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('prediction');
             $table->string('product_name');
             $table->string('store_name')->nullable();
             $table->integer('quantity')->nullable();

@@ -94,7 +94,7 @@
 
 <!-- Products of the week -->
 <div id="latest_products">
-    {{-- @include('inc.products_of_the_week') --}}
+    @include('inc.products_of_the_week')
 </div>
 
 
@@ -120,19 +120,19 @@
 </div>
 <!-- Mostly shared products -->
 <div id="most_shared_products">
-    {{-- @include('inc.mostly_shared_products') --}}
+    @include('inc.mostly_shared_products')
 </div>
 
 <br><Br><br>
     
 <!-- Just for you products -->
 <div id="recommended_products">
-    {{-- @include('inc.just_for_you_products') --}}
+    @include('inc.just_for_you_products')
 </div>
 
 <!--Shared Listst-->
 <div id="shared_lists">
-    {{-- @include('inc.shared_lists') --}}
+    @include('inc.shared_lists')
 </div>
 
 
@@ -142,9 +142,6 @@
 <script src="/js/import/jquery-library.js"></script>
 <script src="/js/import/sweetalert.min.js"></script>
 
-<script src="{{ asset('js/vue-js/axios.js') }}"></script>
-<script src="{{ asset('js/vue-js/vue2.1.3.js') }}"></script>
-<script src="{{ asset('js/vue-js/product.js') }}"></script>
 
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>

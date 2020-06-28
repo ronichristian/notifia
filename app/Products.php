@@ -45,4 +45,9 @@ class Products extends Model
         return $base64;
     }
 
+    public function pages_for_index()
+    {
+        return "ASD";
+    }
+
 }
